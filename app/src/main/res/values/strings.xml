@@ -5,4 +5,8 @@
     <string name="button_submit">Submit</string>
     <string name="button_clear">Clear</string>
     <string name="title_activity_display_weather">DisplayWeatherActivity</string>
+    <string-array name="state_array">
+        <item>Texas</item>
+        <item>California</item>
+    </string-array>
 </resources>
