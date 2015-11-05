@@ -15,7 +15,7 @@ import android.widget.Spinner;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static final String STREET = "com.example.yiliu.forecast.STREET";
+    public static final String QUERY = "com.example.yiliu.forecast.STREET";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitForm(View view) {
+        String info = "?street=2301&city=Plano&state=TX";
         Intent intent = new Intent(this, DisplayWeatherActivity.class);
         EditText streetEdit = (EditText) findViewById(R.id.street);
-        String street = streetEdit.getText().toString();
-        intent.putExtra(STREET, street);
+        intent.putExtra(QUERY, info);
         startActivity(intent);
     }
 }
