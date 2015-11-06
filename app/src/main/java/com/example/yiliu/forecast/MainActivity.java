@@ -1,6 +1,7 @@
 package com.example.yiliu.forecast;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,11 +69,28 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void submitForm(View view) {
-        String info = "?street=2301&city=Plano&state=TX";
+    public void submitForm(View view) throws MalformedURLException {
+
+        String street = ((EditText) findViewById(R.id.street)).getText().toString();
+        String city = ((EditText) findViewById(R.id.city)).getText().toString();
+        String state = ((Spinner) findViewById(R.id.state)).getSelectedItem().toString();
+        String degree = ((RadioGroup) findViewById(R.id.degree))
+                .getCheckedRadioButtonId() == 0? "us": "si";
+
+        Uri.Builder url = new Uri.Builder();
+        url.scheme("http");
+        url.authority("www.glistenlau.com");
+        url.appendPath("forecast");
+        url.appendPath("api");
+        url.appendPath("weather");
+        url.appendQueryParameter("street", street);
+        url.appendQueryParameter("city", city);
+        url.appendQueryParameter("state", state);
+        url.appendQueryParameter("degreeType", degree);
+
+
         Intent intent = new Intent(this, DisplayWeatherActivity.class);
-        EditText streetEdit = (EditText) findViewById(R.id.street);
-        intent.putExtra(QUERY, info);
+        intent.putExtra(QUERY, url.toString());
         startActivity(intent);
     }
 }
