@@ -24,7 +24,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/street" />
+    </TableRow>
 
+    <TableRow android:id="@+id/streetValid"
+        android:gravity="center_horizontal"
+        android:visibility="invisible">
+        <TextView
+            android:layout_column="2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#F44336"
+            android:text="Please enter street"
+            />
     </TableRow>
 
     <TableRow>
@@ -41,6 +52,18 @@
             android:hint="Enter the city" />
     </TableRow>
 
+    <TableRow android:id="@+id/cityValid"
+        android:gravity="center_horizontal"
+        android:visibility="invisible">
+        <TextView
+            android:layout_column="2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#F44336"
+            android:text="Please enter street"
+            />
+    </TableRow>
+
     <TableRow>
         <TextView
             android:layout_weight="1"
@@ -51,6 +74,18 @@
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
+    </TableRow>
+
+    <TableRow  android:id="@+id/stateValid"
+        android:gravity="center_horizontal"
+        android:visibility="invisible">
+        <TextView
+            android:layout_column="2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#F44336"
+            android:text="Please enter street"
+            />
     </TableRow>
 
     <TableRow>
