@@ -1,7 +1,11 @@
 package com.example.yiliu.forecast;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,9 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.DownloadListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -19,7 +26,17 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -117,9 +134,10 @@ public class MainActivity extends AppCompatActivity {
             url.appendQueryParameter("state", state);
             url.appendQueryParameter("degreeType", degree);
 
-            Intent intent = new Intent(this, DisplayWeatherActivity.class);
-            intent.putExtra(QUERY, url.toString());
-            startActivity(intent);
+            JSONObject rep = queryWeather(url.toString());
+//            Intent intent = new Intent(this, DisplayWeatherActivity.class);
+//            intent.putExtra(QUERY, url.toString());
+//            startActivity(intent);
         }
     }
 
@@ -175,5 +193,81 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    private void queryWeather(String url) {
+        // check network connection
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        // if network connection is ok
+        if (networkInfo != null && networkInfo.isConnected()) {
+            new GetWeatherInfo().execute(url);
+        } else {
+            Toast.makeText(getApplicationContext(), "Can't connect to Internet." +
+                    " Please check Internet connection", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class GetWeatherInfo extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                return sendRequest(urls[0]);
+            } catch (IOException e) {
+                return "Unable to retrieve weather forecast. Information may be invalid";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Intent intent = new Intent(getApplicationContext(), DisplayWeatherActivity.class);
+            intent.putExtra(QUERY, result);
+            startActivity(intent);
+        }
+    }
+
+    private String sendRequest(String myQuery) throws IOException {
+        InputStream is = null;
+
+        try {
+            URL query = new URL(myQuery);
+            HttpURLConnection conn = (HttpURLConnection) query.openConnection();
+            conn.setReadTimeout(10000 /* milliseconds */);
+            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            // Starts the query
+            conn.connect();
+            int response = conn.getResponseCode();
+            Log.d("Connection", "The response is: " + response);
+            is = conn.getInputStream();
+
+            // Convert the InputStream into a string
+            return readIt(is);
+
+            // Makes sure that the Input Stream is closed after the app is finished using it.
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
+    }
+
+    private String readIt(InputStream stream) throws IOException {
+        Reader reader = new InputStreamReader(stream, "UTF-8");
+        StringBuilder rst = new StringBuilder();
+        while (true) {
+            int next = reader.read();
+            if (next == -1) {
+                break;
+            } else {
+                rst.append((char)next);
+            }
+        }
+        return rst.toString();
+    }
+
+
 
 }
