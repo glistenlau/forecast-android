@@ -27,11 +27,8 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     public static final String QUERY = "com.example.yiliu.forecast.STREET";
-    private EditText streetEditText;
     private TableRow streetValid;
-    private EditText cityEditText;
     private TableRow cityValid;
-    private Spinner stateSpinner;
     private TableRow stateValid;
 
     @Override
@@ -86,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
         boolean valid = true;
 
         // get the input information
-        String street = ((EditText) findViewById(R.id.street)).getText().toString();
-        String city = ((EditText) findViewById(R.id.city)).getText().toString();
-        String state = ((Spinner) findViewById(R.id.state)).getSelectedItem().toString();
+        String street = ((EditText) findViewById(R.id.street)).getText().toString().trim();
+        String city = ((EditText) findViewById(R.id.city)).getText().toString().trim();
+        String state = ((Spinner) findViewById(R.id.state)).getSelectedItem().toString().trim();
         String degree = ((RadioGroup) findViewById(R.id.degree))
                 .getCheckedRadioButtonId() == 0? "us": "si";
 
@@ -128,68 +125,41 @@ public class MainActivity extends AppCompatActivity {
 
     private void addValidateListener() {
         // get the views of the form
-        streetEditText = (EditText) findViewById(R.id.street);
+        EditText streetEditText = (EditText) findViewById(R.id.street);
+        EditText cityEditText = (EditText) findViewById(R.id.city);
+        Spinner stateSpinner = (Spinner) findViewById(R.id.state);
         streetValid = (TableRow) findViewById(R.id.streetValid);
-        cityEditText = (EditText) findViewById(R.id.city);
         cityValid = (TableRow) findViewById(R.id.cityValid);
-        stateSpinner = (Spinner) findViewById(R.id.state);
         stateValid = (TableRow) findViewById(R.id.stateValid);
 
         // set validate watcher to form input
-        streetEditText.addTextChangedListener(streetWatcher);
-        cityEditText.addTextChangedListener(cityWatcher);
+        setValidateListener(streetValid, streetEditText);
+        setValidateListener(cityValid, cityEditText);
         stateSpinner.setOnItemSelectedListener(sateWatcher);
     }
 
-    private final TextWatcher streetWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private void setValidateListener(final TableRow hintText, EditText input) {
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        }
+            }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        }
+            }
 
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() == 0) {
-                streetValid.setVisibility(View.INVISIBLE);
-            } else {
-                if (s.toString().trim().length() == 0) {
-                    streetValid.setVisibility(View.VISIBLE);
-                } else {
-                    streetValid.setVisibility(View.INVISIBLE);
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().length() != 0) {
+                    hintText.setVisibility(View.INVISIBLE);
                 }
             }
-        }
-    };
+        };
 
-    private final TextWatcher cityWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() == 0) {
-                cityValid.setVisibility(View.INVISIBLE);
-            } else {
-                if (s.toString().trim().length() == 0) {
-                    cityValid.setVisibility(View.VISIBLE);
-                } else {
-                    cityValid.setVisibility(View.INVISIBLE);
-                }
-            }
-        }
-    };
+        input.addTextChangedListener(textWatcher);
+    }
 
     private final AdapterView.OnItemSelectedListener sateWatcher = new AdapterView.OnItemSelectedListener() {
         @Override
