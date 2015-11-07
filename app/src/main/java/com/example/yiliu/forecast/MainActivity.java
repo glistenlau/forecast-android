@@ -134,10 +134,7 @@ public class MainActivity extends AppCompatActivity {
             url.appendQueryParameter("state", state);
             url.appendQueryParameter("degreeType", degree);
 
-            JSONObject rep = queryWeather(url.toString());
-//            Intent intent = new Intent(this, DisplayWeatherActivity.class);
-//            intent.putExtra(QUERY, url.toString());
-//            startActivity(intent);
+            queryWeather(url.toString());
         }
     }
 
