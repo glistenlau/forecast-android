@@ -23,7 +23,7 @@
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/street" />
+            android:hint="Enter the city" />
     </TableRow>
 
     <TableRow android:id="@+id/streetValid"
@@ -116,12 +116,17 @@
 
     <TableRow>
         <Button
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/button_submit"
             android:onClick="submitForm" />
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:onClick="clearForm" />
     </TableRow>
 </TableLayout>
-
 

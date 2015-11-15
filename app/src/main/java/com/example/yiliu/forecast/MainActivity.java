@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Intent intent = new Intent(getApplicationContext(), DisplayWeatherActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Weather.class);
             intent.putExtra(QUERY, result);
             startActivity(intent);
         }
@@ -264,7 +264,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return rst.toString();
     }
-
-
-
 }

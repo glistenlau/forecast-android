@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yiliu.forecast" >
-
     // Accessing Network Permission
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -23,13 +22,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayWeatherActivity"
-            android:label="@string/title_activity_display_weather"
-            android:parentActivityName=".MainActivity"
+            android:name=".Weather"
+            android:label="@string/title_activity_weather"
             android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.yiliu.forecast.MainActivity" />
         </activity>
     </application>
 
