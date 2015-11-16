@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,8 +35,9 @@ public class Weather extends AppCompatActivity {
         Intent intent = getIntent();
         try {
             JSONObject data = new JSONObject(intent.getStringExtra(MainActivity.QUERY));
+            String degreeType = intent.getStringExtra(MainActivity.DEGREE_TYPE);
+
             ImageView icon = (ImageView) findViewById(R.id.current_icon);
-            icon.setImageResource(R.drawable.clear_night);
 
         } catch (JSONException e) {
             e.printStackTrace();

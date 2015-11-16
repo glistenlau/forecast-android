@@ -43,7 +43,8 @@ import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static final String QUERY = "com.example.yiliu.forecast.STREET";
+    public static final String QUERY = "com.example.yiliu.forecast.QUERY";
+    public static final String DEGREE_TYPE = "com.example.yiliu.forecast.DEGREE_TYPE";
     private TableRow streetValid;
     private TableRow cityValid;
     private TableRow stateValid;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         String city = ((EditText) findViewById(R.id.city)).getText().toString().trim();
         String state = ((Spinner) findViewById(R.id.state)).getSelectedItem().toString().trim();
         String degree = ((RadioGroup) findViewById(R.id.degree))
-                .getCheckedRadioButtonId() == 0? "us": "si";
+                .getCheckedRadioButtonId() == R.id.us? "us": "si";
 
         // validate the form input
         if (street.trim().length() == 0) {
@@ -219,7 +220,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Intent intent = new Intent(getApplicationContext(), Weather.class);
+            String degreeType = ((RadioGroup) findViewById(R.id.degree))
+                    .getCheckedRadioButtonId() == R.id.us? "us": "si";
             intent.putExtra(QUERY, result);
+            intent.putExtra(DEGREE_TYPE, degreeType);
             startActivity(intent);
         }
     }
