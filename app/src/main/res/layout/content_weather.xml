@@ -16,18 +16,32 @@
             android:layout_height="100dp"
             android:src="@drawable/clear" />
 
+        <TableRow android:gravity="center_horizontal">
+            <TextView android:id="@+id/nowSummary"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="None" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+            <TextView android:id="@+id/nowTemp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="None" />
+        </TableRow>
+
         <TableRow>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Precipitation"/>
-            <TextView
+            <TextView android:id="@+id/nowPrecipitation"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
         <TableRow>
@@ -36,12 +50,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Chance of Rain"/>
-            <TextView
+            <TextView android:id="@+id/nowChanceOfRain"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
         <TableRow>
@@ -50,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Wind Speed"/>
-            <TextView
+            <TextView android:id="@+id/nowWindSpeed"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -64,12 +78,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Dew Point"/>
-            <TextView
+            <TextView android:id="@+id/nowDewPoint"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
         <TableRow>
@@ -78,12 +92,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Humidity"/>
-            <TextView
+            <TextView android:id="@+id/nowHumidity"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
         <TableRow>
@@ -92,12 +106,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Visibility"/>
-            <TextView
+            <TextView android:id="@+id/nowVisibility"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
         <TableRow>
@@ -106,12 +120,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Sunrise"/>
-            <TextView
+            <TextView android:id="@+id/nowSunrise"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
         <TableRow>
@@ -120,12 +134,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Sunset"/>
-            <TextView
+            <TextView android:id="@+id/nowSunset"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Heavy" />
+                android:text="None" />
         </TableRow>
 
     </TableLayout>

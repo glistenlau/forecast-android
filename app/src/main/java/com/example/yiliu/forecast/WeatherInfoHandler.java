@@ -84,21 +84,17 @@ public class WeatherInfoHandler {
         return visibility;
     }
 
-    public String getSunrise(long time) {
+    public String getTime(long time) {
             Calendar date = Calendar.getInstance();
             date.setTimeInMillis(1000 * time);
             return convertTime(date);
     }
 
-    public String getSunset(long time) {
-            Calendar date = Calendar.getInstance();
-            date.setTimeInMillis(1000 * time);
-            return convertTime(date);
+    public String getTemp(double temp) {
+        return "" + (int) temp + "º";
     }
-
     private String convertTime(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         return sdf.format(calendar.getTime());
     }
-
 }
