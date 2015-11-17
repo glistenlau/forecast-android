@@ -11,6 +11,25 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TableRow>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MORE DETAILS"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIEW MAP"/>
+            <ImageButton android:id="@+id/facebook_login_btn"
+                android:src="@drawable/fb_icon"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:onClick="loginFacebook"/>
+        </TableRow>
+
         <ImageView android:id="@+id/current_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"

@@ -5,6 +5,7 @@
     <string name="button_submit">Submit</string>
     <string name="button_clear">Clear</string>
     <string name="title_activity_display_weather">DisplayWeatherActivity</string>
+    <string name="facebook_app_id">914819041948560</string>
     <string-array name="state_array">
         <item>Select your state...</item>
         <item>Alabama</item>

@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -21,11 +22,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Weather"
             android:label="@string/title_activity_weather"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider914819041948560"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
     </application>
 
 </manifest>
