@@ -40,6 +40,35 @@ public class WeatherInfoHandler {
         }
     }
 
+    public String getIconUrl(String icon) {
+        String path = "http://glistenlau.com/forecast/static/images/";
+        if (icon.equals("clear-day")) {
+            path += "clear.png";
+        } else if (icon.equals("clear-night")) {
+            path += "clear_night.png";
+        } else if (icon.equals("rain")) {
+            path += "rain.png";
+        } else if (icon.equals("snow")) {
+            path += "snow.png";
+        } else if (icon.equals("sleet")) {
+            path += "sleet.png";
+        } else if (icon.equals("wind")) {
+            path += "wind.png";
+        } else if (icon.equals("fog")) {
+            path += "fog.png";
+        } else if (icon.equals("cloudy")) {
+            path += "cloudy.png";
+        } else if (icon.equals("partly-cloudy-day")) {
+            path += "cloud_day.png";
+        } else if (icon.equals("partly-cloudy-night")) {
+            path += "cloud_night.png";
+        } else {
+            return "";
+        }
+
+        return path;
+    }
+
     public String getPrecipitation(double precipitation) {
         if (precipitation >= 0.4) {
             return "Heavy";

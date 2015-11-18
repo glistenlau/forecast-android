@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -30,6 +31,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -46,6 +48,10 @@ import java.util.List;
 public class Weather extends AppCompatActivity {
     private CallbackManager callbackManager;
     private LoginManager loginManager;
+    private WeatherInfoHandler handler;
+    private CurrentWeather currentWeather;
+    private JSONObject data;
+    private String degreeType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +72,20 @@ public class Weather extends AppCompatActivity {
 
         Intent intent = getIntent();
         try {
-            JSONObject data = new JSONObject(intent.getStringExtra(MainActivity.QUERY));
-            JSONArray daily = data.getJSONObject("daily").getJSONArray("data");
-            String degreeType = intent.getStringExtra(MainActivity.DEGREE_TYPE);
-            setCurrentWeather(data, degreeType);
+            data = new JSONObject(intent.getStringExtra(MainActivity.QUERY));
+            degreeType = intent.getStringExtra(MainActivity.DEGREE_TYPE);
+            handler = new WeatherInfoHandler(degreeType);
+            currentWeather = new CurrentWeather(findViewById(android.R.id.content), data, degreeType);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public void loginFacebook(View view) {
@@ -87,133 +100,55 @@ public class Weather extends AppCompatActivity {
         loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
+                publishWeather();
             }
 
             @Override
             public void onCancel() {
-
+                Toast.makeText(getApplicationContext(), "Login cancelled", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-
+                Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+    private void publishWeather() {
+        ShareDialog shareDialog = new ShareDialog(this);
 
-    private void setCurrentWeather(JSONObject data, String degreeType) {
-        WeatherInfoHandler handler = new WeatherInfoHandler(degreeType);
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = null;
+            try {
+                linkContent = new ShareLinkContent.Builder()
+                        .setContentTitle("Current Weather in " + data.getString("address"))
+                        .setContentDescription(
+                                currentWeather.getSummary() + ", " + currentWeather.getTemp())
+                        .setContentUrl(Uri.parse("http://forecast.io"))
+                        .setImageUrl(Uri.parse(handler.getIconUrl(currentWeather.getIcon())))
+                        .build();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        // set Summary
-        try {
-            String value = data.getJSONObject("currently").getString("summary")
-                    + " in " + data.getString("address");
-            ((TextView) findViewById(R.id.nowSummary)).setText(value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            shareDialog.show(linkContent);
+            shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                @Override
+                public void onSuccess(Sharer.Result result) {
+                    Toast.makeText(getApplicationContext(), "Facebook post successful", Toast.LENGTH_LONG).show();
+                }
 
-        // set Icon
-        try {
-            ((ImageView) findViewById(R.id.current_icon)).setImageResource(
-                    handler.getIcon(data.getJSONObject("currently").getString("icon")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                @Override
+                public void onCancel() {
+                    Toast.makeText(getApplicationContext(), "Post cancelled", Toast.LENGTH_LONG).show();
+                }
 
-        // set Temp
-        try {
-            SpannableString value = new SpannableString(
-                    "" + data.getJSONObject("currently").getInt("temperature")
-                            + (degreeType.equals("us")? " ºF": " ºC"));
-            value.setSpan(new AbsoluteSizeSpan(128), 0, value.length() - 2,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            value.setSpan(new SuperscriptSpan(), value.length() - 2, value.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ((TextView) findViewById(R.id.nowTemp)).setText(value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Precipitation
-        try {
-            double value = data.getJSONObject("currently").getDouble("precipIntensity");
-            ((TextView) findViewById(R.id.nowPrecipitation))
-                    .setText(handler.getPrecipitation(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Chance of Rain
-        try {
-            double value = data.getJSONObject("currently").getDouble("precipProbability");
-            ((TextView) findViewById(R.id.nowChanceOfRain))
-                    .setText(handler.getChanceOfRain(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Wind Speed
-        try {
-            double value = data.getJSONObject("currently").getDouble("windSpeed");
-            ((TextView) findViewById(R.id.nowWindSpeed))
-                    .setText(handler.getWindSpeed(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Dew Point
-        try {
-            double value = data.getJSONObject("currently").getDouble("dewPoint");
-            ((TextView) findViewById(R.id.nowDewPoint))
-                    .setText(handler.getDewPoint(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Humidity
-        try {
-            double value = data.getJSONObject("currently").getDouble("humidity");
-            ((TextView) findViewById(R.id.nowHumidity))
-                    .setText(handler.getHumidity(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Visibility
-        try {
-            double value = data.getJSONObject("currently").getDouble("visibility");
-            ((TextView) findViewById(R.id.nowVisibility))
-                    .setText(handler.getVisibility(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Sunrise Time
-        try {
-            long value = data.getJSONObject("daily").getJSONArray("data")
-                    .getJSONObject(0).getLong("sunriseTime");
-            ((TextView) findViewById(R.id.nowSunrise))
-                    .setText(handler.getTime(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // set Sunset Time
-        try {
-            long value = data.getJSONObject("daily").getJSONArray("data")
-                    .getJSONObject(0).getLong("sunsetTime");
-            ((TextView) findViewById(R.id.nowSunset))
-                    .setText(handler.getTime(value));
-        } catch (JSONException e) {
-            e.printStackTrace();
+                @Override
+                public void onError(FacebookException error) {
+                    Toast.makeText(getApplicationContext(), "Post failed", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
