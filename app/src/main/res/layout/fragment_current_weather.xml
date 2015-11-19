@@ -31,7 +31,7 @@
                     android:scaleType="fitXY"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:onClick="loginFacebook"/>
+                    android:onClick="facebookClickMethod"/>
             </TableRow>
 
             <ImageView android:id="@+id/current_icon"
