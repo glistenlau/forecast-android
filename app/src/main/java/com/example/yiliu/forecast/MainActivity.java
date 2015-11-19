@@ -13,32 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.DownloadListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 
@@ -62,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 R.array.state_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         state.setAdapter(adapter);
+        state.setSelection(44);
 
         addValidateListener();
 
@@ -219,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Intent intent = new Intent(getApplicationContext(), Weather.class);
+            Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
             String degreeType = ((RadioGroup) findViewById(R.id.degree))
                     .getCheckedRadioButtonId() == R.id.us? "us": "si";
             intent.putExtra(QUERY, result);

@@ -187,7 +187,7 @@ public class CurrentWeather {
         try {
             long value = data.getJSONObject("daily").getJSONArray("data")
                     .getJSONObject(0).getLong("sunsetTime");
-            handler.getTime(value);
+            sunsetTime = handler.getTime(value);
             ((TextView) view.findViewById(R.id.nowSunset))
                     .setText(sunsetTime);
         } catch (JSONException e) {
