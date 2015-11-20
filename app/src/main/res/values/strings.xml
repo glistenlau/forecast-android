@@ -64,6 +64,10 @@
     <string name="title_activity_swipe_test">Test</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    // aeris client id and secret
+    <string name="aeris_client_id">bF3iBiQUqGujKqsw3CV0G</string>
+    <string name="aeris_client_secret">aF1WbgxD3RDAMqVVMLqvBrfZcuIKyJEl88HDKEh0</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>

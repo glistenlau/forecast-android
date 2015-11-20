@@ -1,42 +1,25 @@
 package com.example.yiliu.forecast;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -54,8 +37,7 @@ public class WeatherActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private CallbackManager callbackManager;
-    private LoginManager loginManager;
+
     private JSONObject data;
     private String rawData;
     private String degreeType;
@@ -140,6 +122,9 @@ public class WeatherActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             currentFragment = CurrentWeatherFragment.newInstance(rawData, degreeType);
+            switch (position) {
+                case 0: return currentFragment;
+            }
             return  currentFragment;
         }
 
@@ -165,6 +150,17 @@ public class WeatherActivity extends AppCompatActivity {
 
     public void facebookClickMethod(View view) {
         ((CurrentWeatherFragment) currentFragment).loginFacebook(view);
+    }
+
+    public void openMap(View view) throws JSONException {
+        Intent intent = new Intent(this, MapActivity.class);
+
+        // pass location to map view
+        intent.putExtra("latitude", data.getString("latitude"));
+        intent.putExtra("longitude", data.getString("longitude"));
+
+        // start map
+        startActivity(intent);
     }
 
 }
