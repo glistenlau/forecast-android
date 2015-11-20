@@ -14,6 +14,7 @@ import com.hamweather.aeris.maps.AerisMapView;
 import com.hamweather.aeris.maps.AerisMapView.AerisMapType;
 import com.hamweather.aeris.maps.MapViewFragment;
 import com.hamweather.aeris.model.AerisResponse;
+import com.hamweather.aeris.tiles.AerisTile;
 
 public class InteractiveMapFragment extends MapViewFragment implements AerisCallback
 {
@@ -26,6 +27,7 @@ public class InteractiveMapFragment extends MapViewFragment implements AerisCall
         AerisEngine.initWithKeys(this.getString(R.string.aeris_client_id),
                 this.getString(R.string.aeris_client_secret), getActivity());
         mapView = (AerisMapView)view.findViewById(R.id.aerisfragment_map);
+        mapView.addLayer(AerisTile.RADAR);
         mapView.init(savedInstanceState, AerisMapType.GOOGLE);
 
         moveToLocation();
