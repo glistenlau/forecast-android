@@ -27,8 +27,8 @@ public class InteractiveMapFragment extends MapViewFragment implements AerisCall
         AerisEngine.initWithKeys(this.getString(R.string.aeris_client_id),
                 this.getString(R.string.aeris_client_secret), getActivity());
         mapView = (AerisMapView)view.findViewById(R.id.aerisfragment_map);
-        mapView.addLayer(AerisTile.RADAR);
         mapView.init(savedInstanceState, AerisMapType.GOOGLE);
+        mapView.addLayer(AerisTile.RADSAT);
 
         moveToLocation();
 
