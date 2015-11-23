@@ -131,6 +131,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void clearForm(View view) {
+        ((EditText) findViewById(R.id.street)).setText("");
+        ((EditText) findViewById(R.id.city)).setText("");
+        ((Spinner) findViewById(R.id.state)).setSelection(0);
+        ((RadioGroup) findViewById(R.id.degree)).check(R.id.us);
+    }
+
     private void addValidateListener() {
         // get the views of the form
         EditText streetEditText = (EditText) findViewById(R.id.street);
