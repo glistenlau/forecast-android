@@ -140,14 +140,16 @@
             android:layout_height="wrap_content"
             android:text="@string/button_submit"
             android:onClick="submitForm"
-            style="@style/content"/>
+            style="@style/content"
+            android:gravity="center_vertical|center_horizontal" />
         <Button
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Clear"
             android:onClick="clearForm"
-            style="@style/content"/>
+            style="@style/content"
+            android:gravity="center_vertical|center_horizontal" />
     </TableRow>
 </TableLayout>
 

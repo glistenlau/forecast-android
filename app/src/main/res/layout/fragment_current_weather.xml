@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
     tools:context="com.example.yiliu.forecast.CurrentWeatherFragment">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +13,8 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_weather" tools:context="com.example.yiliu.forecast.WeatherActivity">
+        tools:showIn="@layout/activity_weather" tools:context="com.example.yiliu.forecast.WeatherActivity"
+        android:layout_gravity="right|bottom">
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -44,19 +46,17 @@
             <TableRow android:gravity="center_horizontal">
                 <TextView android:id="@+id/nowSummary"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    style="@style/TextAppearance.AppCompat.Large"
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow android:gravity="center_horizontal">
                 <TextView android:id="@+id/nowTemp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    style="@style/TextAppearance.AppCompat.Large"
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
 
@@ -64,128 +64,112 @@
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Precipitation"/>
+                    android:text="Precipitation"
+                    style="@style/content" />
                 <TextView android:id="@+id/nowPrecipitation"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Chance of Rain"/>
+                    android:text="Chance of Rain"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowChanceOfRain"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Wind Speed"/>
+                    android:text="Wind Speed"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowWindSpeed"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="Heavy" />
+                    android:text="Heavy"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Dew Point"/>
+                    android:text="Dew Point"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowDewPoint"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
                     android:gravity="right"
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Humidity"/>
+                    android:text="Humidity"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowHumidity"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Visibility"/>
+                    android:text="Visibility"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowVisibility"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Sunrise"/>
+                    android:text="Sunrise"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowSunrise"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    
-                    android:text="Sunset"/>
+                    android:text="Sunset"
+                    style="@style/content"/>
                 <TextView android:id="@+id/nowSunset"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="right"
-                    
-                    android:text="None" />
+                    android:text="None"
+                    style="@style/content"/>
             </TableRow>
 
         </TableLayout>
