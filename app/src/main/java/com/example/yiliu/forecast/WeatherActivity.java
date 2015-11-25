@@ -124,6 +124,7 @@ public class WeatherActivity extends AppCompatActivity {
             currentFragment = CurrentWeatherFragment.newInstance(rawData, degreeType);
             switch (position) {
                 case 0: return currentFragment;
+                case 1: return NextHoursFragment.newInstance("", "");
             }
             return  currentFragment;
         }

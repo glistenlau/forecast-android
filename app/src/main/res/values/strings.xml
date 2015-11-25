@@ -58,7 +58,7 @@
         <item>Washington</item>
         <item>West Virginia</item>
         <item>Wisconsin</item>
-        <item>Wyoming</item>        
+        <item>Wyoming</item>
     </string-array>
     <string name="title_activity_weather">Weather</string>
     <string name="title_activity_swipe_test">Test</string>
@@ -68,7 +68,7 @@
     <string name="aeris_client_id">bF3iBiQUqGujKqsw3CV0G</string>
     <string name="aeris_client_secret">aF1WbgxD3RDAMqVVMLqvBrfZcuIKyJEl88HDKEh0</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
 </resources>
