@@ -54,8 +54,6 @@ public class CurrentWeatherFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment CurrentWeatherFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -117,77 +115,6 @@ public class CurrentWeatherFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
-    }
-
-    public void loginFacebook(View view) {
-        callbackManager = CallbackManager.Factory.create();
-
-        List<String> permissionNeeds = Arrays.asList("publish_actions");
-
-        loginManager = LoginManager.getInstance();
-
-        loginManager.logInWithPublishPermissions(this, permissionNeeds);
-
-        loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                publishWeather();
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(getContext(), "Login cancelled", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getContext(), "Login failed", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void publishWeather() {
-        ShareDialog shareDialog = new ShareDialog(this);
-
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
-            ShareLinkContent linkContent = null;
-            try {
-                linkContent = new ShareLinkContent.Builder()
-                        .setContentTitle("Current WeatherActivity in " + mData.getString("address"))
-                        .setContentTitle("Current WeatherActivity in " + mData.getString("address"))
-                        .setContentDescription(
-                                currentWeather.getSummary() + ", " + currentWeather.getTemp())
-                        .setContentUrl(Uri.parse("http://forecast.io"))
-                        .setImageUrl(Uri.parse(handler.getIconUrl(currentWeather.getIcon())))
-                        .build();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            shareDialog.show(linkContent);
-            shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-                @Override
-                public void onSuccess(Sharer.Result result) {
-                    Toast.makeText(getContext(), "Facebook post successful", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onCancel() {
-                    Toast.makeText(getContext(), "Post cancelled", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-                    Toast.makeText(getContext(), "Post failed", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }

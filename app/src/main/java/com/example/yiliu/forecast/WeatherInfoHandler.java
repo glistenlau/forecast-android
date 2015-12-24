@@ -69,6 +69,14 @@ public class WeatherInfoHandler {
         return path;
     }
 
+    public String getCloudCover(double cloudCover) {
+        return "" + (int)cloudCover + "%";
+    }
+
+    public String getPressure(double pressure) {
+        return "" + pressure + (degreeType.equals("us")? " mb": " hPa");
+    }
+
     public String getPrecipitation(double precipitation) {
         if (precipitation >= 0.4) {
             return "Heavy";

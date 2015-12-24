@@ -1,6 +1,7 @@
 package com.example.yiliu.forecast;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,10 +17,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -42,6 +56,9 @@ public class WeatherActivity extends AppCompatActivity {
     private String rawData;
     private String degreeType;
     private Fragment currentFragment;
+    private Fragment nextHoursFragment;
+    private CallbackManager callbackManager;
+    private LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +93,10 @@ public class WeatherActivity extends AppCompatActivity {
         try {
             data = new JSONObject(rawData);
             degreeType = intent.getStringExtra(MainActivity.DEGREE_TYPE);
+
+
             setTitle("Weather in " + data.getString("address"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -122,11 +142,12 @@ public class WeatherActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             currentFragment = CurrentWeatherFragment.newInstance(rawData, degreeType);
-            switch (position) {
-                case 0: return currentFragment;
-                case 1: return NextHoursFragment.newInstance("", "");
+
+            if (position == 1) {
+                return NextHoursFragment.newInstance(rawData, degreeType);
+            } else {
+                return currentFragment;
             }
-            return  currentFragment;
         }
 
         @Override
@@ -150,7 +171,91 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     public void facebookClickMethod(View view) {
-        ((CurrentWeatherFragment) currentFragment).loginFacebook(view);
+        loginFacebook(view);
+    }
+
+    public void loginFacebook(View view) {
+        callbackManager = CallbackManager.Factory.create();
+
+        List<String> permissionNeeds = Arrays.asList("publish_actions");
+
+        loginManager = LoginManager.getInstance();
+
+        loginManager.logInWithPublishPermissions(this, permissionNeeds);
+
+        loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                publishWeather();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "Login cancelled", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void publishWeather() {
+        ShareDialog shareDialog = new ShareDialog(this);
+
+
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            if (ShareDialog.canShow(ShareLinkContent.class)) {
+                ShareLinkContent linkContent = null;
+                try {
+
+
+                    WeatherInfoHandler handler = new WeatherInfoHandler(degreeType);
+
+                    // get current weather information for Facebook publish
+                    JSONObject mData = new JSONObject(rawData);
+                    String summary = mData.getJSONObject("currently").getString("summary");
+                    String temp = "" + mData.getJSONObject("currently").getInt("temperature")
+                            + (degreeType.equals("us") ? " ºF" : " ºC");
+                    String icon = data.getJSONObject("currently").getString("icon");
+
+                    // set the dialog content
+                    linkContent = new ShareLinkContent.Builder()
+                            .setContentTitle("Current WeatherActivity in " + mData.getString("address"))
+                            .setContentDescription(summary + ", " + temp)
+                            .setContentUrl(Uri.parse("http://forecast.io"))
+                            .setImageUrl(Uri.parse(handler.getIconUrl(icon)))
+                            .build();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                shareDialog.show(linkContent);
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Toast.makeText(getApplicationContext(), "Facebook post successful", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(getApplicationContext(), "Post cancelled", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Toast.makeText(getApplicationContext(), "Post failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public void openMap(View view) throws JSONException {

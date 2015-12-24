@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="hourTable"></item>
+    <item type="id" name="horizontalScrollViewB"></item>
+    <item type="id" name="scrollViewC"></item>
+    <item type="id" name="scrollViewD"></item>
+    <item type="id" name="hoursTableView"></item>
+</resources>

@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NextHoursFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link NextHoursFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -20,12 +22,14 @@ import android.view.ViewGroup;
 public class NextHoursFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "rawData";
+    private static final String ARG_PARAM2 = "degreeType";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mRawData;
+    private String mDegreeType;
+
+    private View tableView;
 
 
     public NextHoursFragment() {
@@ -54,16 +58,24 @@ public class NextHoursFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mRawData = getArguments().getString(ARG_PARAM1);
+            mDegreeType = getArguments().getString(ARG_PARAM2);
         }
+
+        try {
+            JSONObject data = new JSONObject(mRawData);
+            tableView = new TwoDimentionalScrollTable(getContext(), data.getJSONObject("hourly"), mDegreeType);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        tableView.setId(R.id.hoursTableView);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_next_hours, container, false);
+        return tableView;
     }
 
 
