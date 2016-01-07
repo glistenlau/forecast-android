@@ -2,6 +2,7 @@ package com.example.yiliu.forecast;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -90,7 +91,7 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
 
         // add the components to be part of the main layout
         this.addComponentToMainLayout();
-        this.setBackgroundColor(Color.RED);
+//        this.setBackgroundColor(Color.RED);
 
 
         // add some table rows
@@ -206,7 +207,7 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
 
         TableRow componentATableRow = new TableRow(this.context);
         TextView textView = this.headerTextView(this.headers[0]);
-        textView.setLayoutParams(new TableRow.LayoutParams(300, CONTENT_HEIGHT));
+        textView.setLayoutParams(new TableRow.LayoutParams(200, CONTENT_HEIGHT));
         componentATableRow.addView(textView);
 
         return componentATableRow;
@@ -218,13 +219,12 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
         TableRow componentBTableRow = new TableRow(this.context);
         int headerFieldCount = this.headers.length;
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams(500, CONTENT_HEIGHT);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(300, CONTENT_HEIGHT);
         params.setMargins(2, 0, 0, 0);
 
         for(int x=0; x<(headerFieldCount-1); x++){
             TextView textView = this.headerTextView(this.headers[x+1]);
             textView.setLayoutParams(params);
-            textView.setBackgroundColor(Color.GREEN);
             componentBTableRow.addView(textView);
         }
 
@@ -244,8 +244,8 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
             TableRow tableRowForTableC = this.tableRowForTableC(sampleObject);
             TableRow taleRowForTableD = this.taleRowForTableD(sampleObject);
 
-            tableRowForTableC.setBackgroundColor(Color.LTGRAY);
-            taleRowForTableD.setBackgroundColor(Color.LTGRAY);
+//            tableRowForTableC.setBackgroundColor(Color.LTGRAY);
+//            taleRowForTableD.setBackgroundColor(Color.LTGRAY);
 
             this.tableC.addView(tableRowForTableC);
             this.tableD.addView(taleRowForTableD);
@@ -310,7 +310,8 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
     TextView bodyTextView(String label){
 
         TextView bodyTextView = new TextView(this.context);
-        bodyTextView.setBackgroundColor(Color.WHITE);
+//        bodyTextView.setBackgroundColor(Color.WHITE);
+        bodyTextView.setTextColor(Color.parseColor("#DEFFFFFF"));
         bodyTextView.setText(label);
         bodyTextView.setGravity(Gravity.CENTER);
         bodyTextView.setPadding(5, 5, 5, 5);
@@ -323,7 +324,8 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
     TextView headerTextView(String label){
 
         TextView headerTextView = new TextView(this.context);
-        headerTextView.setBackgroundColor(Color.WHITE);
+        headerTextView.setTextColor(Color.parseColor("#DEFFFFFF"));
+        headerTextView.setTypeface(null, Typeface.BOLD);
         headerTextView.setText(label);
         headerTextView.setGravity(Gravity.CENTER);
         headerTextView.setPadding(5, 5, 5, 5);
@@ -354,9 +356,9 @@ public class TwoDimentionalScrollTable extends RelativeLayout {
         for(int x=0; x<(tableAChildCount+tableBChildCount); x++){
 
             if(x==0){
-                this.headerCellsWidth[x] = 300;
+                this.headerCellsWidth[x] = 200;
             }else{
-                this.headerCellsWidth[x] = 500;
+                this.headerCellsWidth[x] = 300;
             }
 
         }

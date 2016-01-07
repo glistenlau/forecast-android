@@ -1,6 +1,7 @@
 package com.example.yiliu.forecast;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -75,6 +76,8 @@ public class NextHoursFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        tableView.setBackgroundColor(Color.parseColor("#7F000000"));
+        tableView.setPadding(0, 0, 0, 112);
         return tableView;
     }
 

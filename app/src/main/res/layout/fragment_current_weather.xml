@@ -3,40 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
+    android:paddingBottom="48dp"
     tools:context="com.example.yiliu.forecast.CurrentWeatherFragment">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingBottom="16dp"
+        android:background="#7f000000"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_weather" tools:context="com.example.yiliu.forecast.WeatherActivity"
         android:layout_gravity="right|bottom">
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <TableRow>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MORE DETAILS"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="openMap"
-                    android:text="VIEW MAP"/>
-                <ImageButton android:id="@+id/facebook_login_btn"
-                    android:src="@drawable/fb_icon"
-                    android:background="@null"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:onClick="facebookClickMethod"/>
-            </TableRow>
 
             <ImageView android:id="@+id/current_icon"
                 android:layout_width="200sp"
@@ -48,30 +32,53 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
-            <TableRow android:gravity="center_horizontal">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal">
+
                 <TextView android:id="@+id/nowTemp"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"
+                    android:gravity="center_vertical|center_horizontal" />
+                <ImageButton android:id="@+id/facebook_login_btn"
+                    android:src="@drawable/fb_icon"
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:onClick="facebookClickMethod"
+                    />
+
+
             </TableRow>
 
+            <TableRow android:gravity="center">
+                <TextView android:id="@+id/nowTempHL"
+                    android:layout_width="match_parent"
+                    android:text="H | L"
+                    android:gravity="center"
+                    style="@style/contentW"
+                    android:layout_gravity="center" />
+            </TableRow>
 
             <TableRow>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Precipitation"
-                    style="@style/content" />
+                    style="@style/contentW" />
                 <TextView android:id="@+id/nowPrecipitation"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -79,13 +86,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Chance of Rain"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowChanceOfRain"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -93,13 +100,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Wind Speed"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowWindSpeed"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="Heavy"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -107,13 +114,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Dew Point"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowDewPoint"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -121,13 +128,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Humidity"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowHumidity"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -135,13 +142,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Visibility"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowVisibility"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -149,13 +156,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Sunrise"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowSunrise"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
             <TableRow>
@@ -163,13 +170,13 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:text="Sunset"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
                 <TextView android:id="@+id/nowSunset"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:gravity="right"
                     android:text="None"
-                    style="@style/content"/>
+                    style="@style/contentW"/>
             </TableRow>
 
         </TableLayout>
@@ -180,7 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="16dp"
         android:onClick="openMap"
         android:src="@android:drawable/ic_dialog_map" />
 

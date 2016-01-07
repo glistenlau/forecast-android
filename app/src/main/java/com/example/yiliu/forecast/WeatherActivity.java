@@ -2,6 +2,7 @@ package com.example.yiliu.forecast;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 
@@ -55,8 +58,6 @@ public class WeatherActivity extends AppCompatActivity {
     private JSONObject data;
     private String rawData;
     private String degreeType;
-    private Fragment currentFragment;
-    private Fragment nextHoursFragment;
     private CallbackManager callbackManager;
     private LoginManager loginManager;
 
@@ -68,6 +69,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -141,12 +143,11 @@ public class WeatherActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            currentFragment = CurrentWeatherFragment.newInstance(rawData, degreeType);
 
             if (position == 1) {
                 return NextHoursFragment.newInstance(rawData, degreeType);
             } else {
-                return currentFragment;
+                return CurrentWeatherFragment.newInstance(rawData, degreeType);
             }
         }
 

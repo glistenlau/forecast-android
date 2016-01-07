@@ -112,6 +112,16 @@ public class CurrentWeather {
             e.printStackTrace();
         }
 
+        // set High | Low Temp
+        try {
+            String value = "L:" + data.getJSONObject("daily").getJSONArray("data").getJSONObject(0)
+                    .getInt("temperatureMin") + "º | H:" + data.getJSONObject("daily")
+                    .getJSONArray("data").getJSONObject(0).getInt("temperatureMax") + "º";
+            ((TextView) view.findViewById(R.id.nowTempHL)).setText(value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // set Precipitation
         try {
             double value = data.getJSONObject("currently").getDouble("precipIntensity");

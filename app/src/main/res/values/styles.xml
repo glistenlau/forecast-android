@@ -21,4 +21,10 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="contentW">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#DEFFFFFF</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 </resources>
