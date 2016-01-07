@@ -99,14 +99,10 @@ public class CurrentWeather {
 
         // set Temp
         try {
-            SpannableString value = new SpannableString(
-                    "" + data.getJSONObject("currently").getInt("temperature")
-                            + (degreeType.equals("us")? " ºF": " ºC"));
-            value.setSpan(new AbsoluteSizeSpan(128), 0, value.length() - 2,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            value.setSpan(new SuperscriptSpan(), value.length() - 2, value.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            String value = "" + data.getJSONObject("currently").getInt("temperature");
+            String unit = (degreeType.equals("us") ? "ºF" : "ºC");
             ((TextView) view.findViewById(R.id.nowTemp)).setText(value);
+            ((TextView) view.findViewById(R.id.nowTempUnit)).setText(unit);
             temp = value.toString();
         } catch (JSONException e) {
             e.printStackTrace();

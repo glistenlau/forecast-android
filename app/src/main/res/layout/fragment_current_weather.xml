@@ -35,37 +35,46 @@
                     style="@style/contentW"/>
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal">
-
+            <RelativeLayout
+                android:gravity="center_horizontal">
                 <TextView android:id="@+id/nowTemp"
+                    android:layout_alignParentTop="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="None"
                     style="@style/contentW"
-                    android:gravity="center_vertical|center_horizontal" />
-                <ImageButton android:id="@+id/facebook_login_btn"
-                    android:src="@drawable/fb_icon"
-                    android:background="@null"
-                    android:scaleType="fitXY"
-                    android:layout_width="30sp"
-                    android:layout_height="30sp"
-                    android:onClick="facebookClickMethod"
+                    android:textSize="64dp"
                     />
+                <TextView android:id="@+id/nowTempUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/nowTemp"
+                    android:text="ºF"
+                    style="@style/contentW"/>
+
+            </RelativeLayout>
 
 
-            </TableRow>
 
-            <TableRow android:gravity="center">
+            <RelativeLayout>
                 <TextView android:id="@+id/nowTempHL"
                     android:layout_width="match_parent"
                     android:text="H | L"
                     android:gravity="center"
                     style="@style/contentW"
                     android:layout_gravity="center" />
-            </TableRow>
+                <ImageButton android:id="@+id/facebook_login_btn"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/fb_icon"
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:layout_width="35sp"
+                    android:layout_height="35sp"
+                    android:onClick="facebookClickMethod"
+                    />
+            </RelativeLayout>
+
 
             <TableRow>
                 <TextView
